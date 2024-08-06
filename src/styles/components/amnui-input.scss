@@ -1,0 +1,24 @@
+@import 'src/styles/settings';
+
+.root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+
+    .label {
+        display: block;
+        font-size: var(--amnui-font-size-sm);
+        font-weight: 600;
+        line-height: var(--amnui-leading-6);
+    }
+}
+
+:host([disabled]){
+    #root {
+        filter: grayscale(.75);
+        cursor: not-allowed;
+    }
+}
+
+

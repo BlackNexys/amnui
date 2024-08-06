@@ -1,0 +1,100 @@
+@import 'src/styles/settings';
+
+#root {
+    transition: all 0.115s ease-in-out;
+    font-family: var(--amnui-font-family);
+    font-size: var(--amnui-font-size-md);
+    outline: none;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    gap: var(--amnui-spacing-2);
+    cursor: pointer;
+
+    &.contained {
+        padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+        border-radius: var(--amnui-spacing-1);
+    }
+
+    &.outlined {
+        padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+        border-radius: var(--amnui-spacing-1);
+    }
+
+    &.text {
+        padding: var(--amnui-spacing-0);
+        margin: var(--amnui-spacing-0);
+    }
+
+    @each $theme in $themes {
+        &.contained.#{$theme} {
+            background-color: var(--amnui-#{$theme});
+            color: var(--amnui-#{$theme}-text);
+            border: 1px solid var(--amnui-#{$theme});
+        }
+
+        &.outlined.#{$theme} {
+            background-color: transparent;
+            color: var(--amnui-#{$theme});
+            border: 1px solid var(--amnui-#{$theme});
+        }
+
+        &.text.#{$theme} {
+            background-color: transparent;
+            color: var(--amnui-#{$theme});
+            border: none;
+        }
+
+        &.contained.#{$theme}:hover, &.outlined.#{$theme}:hover {
+            background-color: var(--amnui-#{$theme}-dark);
+            color: var(--amnui-#{$theme}-dark-text);
+            border: 1px solid var(--amnui-#{$theme}-dark);
+            transform: scale(1.05);
+            outline: var(--amnui-#{$theme});
+        }
+
+        &.text.#{$theme}:hover {
+            color: var(--amnui-#{$theme}-dark);
+            text-decoration: underline;
+        }
+
+        &.contained.#{$theme}:active, &.outlined.#{$theme}:active {
+            background-color: var(--amnui-#{$theme}-light);
+            color: var(--amnui-#{$theme}-light-text);
+            border: 1px solid var(--amnui-#{$theme}-light);
+            outline: var(--amnui-#{$theme});
+            transform: scale(0.95);
+        }
+
+        &.text.#{$theme}:active {
+            color: var(--amnui-#{$theme}-light);
+            text-decoration: underline;
+        }
+    }
+}
+
+:host([disabled]){
+    #root {
+        filter: grayscale(.75);
+        cursor: not-allowed;
+    }
+    
+    @each $theme in $themes {
+        .contained.#{$theme}, &.outlined.#{$theme} {
+            background-color: var(--amnui-#{$theme}-light);
+            color: var(--amnui-#{$theme}-light-text);
+            border: 1px solid var(--amnui-#{$theme}-light);
+        }
+
+        .text.#{$theme} {
+            background-color: var(--amnui-#{$theme}-light);
+        }
+    }
+}
+
+

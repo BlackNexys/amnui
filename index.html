@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMNUI</title>
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1>AMNUI</h1>
+        <h2>A Modern Native User Interface</h2>
+      </article>
+
+      <article>
+        <h3>Buttons</h3>
+        <amnui-flex gap="1rem" align="center">
+          <amnui-button variant="contained" theme="primary">
+            Button
+          </amnui-button>
+          <amnui-button variant="outlined" theme="primary">
+            Button
+          </amnui-button>
+          <amnui-button variant="text" theme="primary">
+            Button
+          </amnui-button>
+        </amnui-flex>
+      </article>
+
+      <article>
+        <h3>Links</h3>
+        <amnui-flex gap="1rem" align="center">
+          <amnui-anchor variant="text" theme="primary">
+            Anchor
+          </amnui-anchor>
+          <amnui-anchor variant="contained" theme="primary">
+            Anchor
+          </amnui-anchor>
+          <amnui-anchor variant="outlined" theme="primary">
+            Anchor
+          </amnui-anchor>
+        </amnui-flex>
+      </article>
+
+      <article>
+        <h3>Inputs</h3>
+        <amnui-flex gap="1rem" align="center">
+          <amnui-input placeholder="Input" />
+          <amnui-input placeholder="Input" disabled />
+          <amnui-input placeholder="Input" readonly />
+        </amnui-flex>
+      </article>
+
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

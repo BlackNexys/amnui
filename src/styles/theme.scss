@@ -1,0 +1,118 @@
+:root{
+    // Breakpoints
+    --amnui-breakpoint-xs: 0;
+    --amnui-breakpoint-sm: 576px;
+    --amnui-breakpoint-md: 768px;
+    --amnui-breakpoint-lg: 992px;
+    --amnui-breakpoint-xl: 1200px;
+
+    // Spacing
+    --amnui-spacing-0: 0;
+    --amnui-spacing-1: 0.25rem;
+    --amnui-spacing-2: 0.5rem;
+    --amnui-spacing-3: 0.75rem;
+    --amnui-spacing-4: 1rem;
+    --amnui-spacing-5: 1.25rem;
+    --amnui-spacing-6: 1.5rem;
+    --amnui-spacing-7: 1.75rem;
+    --amnui-spacing-8: 2rem;
+    --amnui-spacing-9: 2.25rem;
+    --amnui-spacing-10: 2.5rem;
+    --amnui-spacing-11: 2.75rem;
+    --amnui-spacing-12: 3rem;
+
+    // Leading
+    --amnui-leading-0: 0;
+    --amnui-leading-1: 0.25rem;
+    --amnui-leading-2: 0.5rem;
+    --amnui-leading-3: 0.75rem;
+    --amnui-leading-4: 1rem;
+    --amnui-leading-5: 1.25rem;
+    --amnui-leading-6: 1.5rem;
+    --amnui-leading-7: 1.75rem;
+    --amnui-leading-8: 2rem;
+    --amnui-leading-9: 2.25rem;
+    --amnui-leading-10: 2.5rem;
+    --amnui-leading-11: 2.75rem;
+    --amnui-leading-12: 3rem;
+
+    // Fonts
+    --amnui-font-family: 'Roboto', sans-serif;
+    --amnui-font-size-xs: 0.75rem;
+    --amnui-font-size-sm: 0.875rem;
+    --amnui-font-size-md: 1rem;
+    --amnui-font-size-lg: 1.125rem;
+    --amnui-font-size-xl: 1.25rem;
+    --amnui-font-size-2xl: 1.5rem;
+    --amnui-font-size-3xl: 1.875rem;
+    --amnui-font-size-4xl: 2.25rem;
+    --amnui-font-size-5xl: 3rem;
+
+
+    // Colors
+    --amnui-primary: #007bff;
+    --amnui-secondary: #6c757d;
+    --amnui-success: #28a745;
+    --amnui-info: #17a2b8;
+    --amnui-warning: #ffc107;
+    --amnui-danger: #dc3545;
+    --amnui-light: #f8f9fa;
+    --amnui-dark: #343a40;
+    --amnui-white: #fff;
+    --amnui-black: #000;
+
+    --amnui-primary-dark: #0056b3;
+    --amnui-secondary-dark: #545b62;
+    --amnui-success-dark: #218838;
+    --amnui-info-dark: #138496;
+    --amnui-warning-dark: #d39e00;
+    --amnui-danger-dark: #bd2130;
+    --amnui-light-dark: #e9ecef;
+    --amnui-dark-dark: #23272a;
+    --amnui-white-dark: #f8f9fa;
+    --amnui-black-dark: #000;
+
+    --amnui-primary-light: #4dabf7;
+    --amnui-secondary-light: #868e96;
+    --amnui-success-light: #56c02b;
+    --amnui-info-light: #2fa4b6;
+    --amnui-warning-light: #ffd33d;
+    --amnui-danger-light: #e4606d;
+    --amnui-light-light: #f8f9fa;
+    --amnui-dark-light: #495057;
+    --amnui-white-light: #fff;
+    --amnui-black-light: #212529;
+
+    --amnui-primary-text: #fff;
+    --amnui-secondary-text: #fff;
+    --amnui-success-text: #fff;
+    --amnui-info-text: #fff;
+    --amnui-warning-text: #fff;
+    --amnui-danger-text: #fff;
+    --amnui-light-text: #212529;
+    --amnui-dark-text: #fff;
+    --amnui-white-text: #212529;
+    --amnui-black-text: #fff;
+
+    --amnui-primary-dark-text: #fff;
+    --amnui-secondary-dark-text: #fff;
+    --amnui-success-dark-text: #fff;
+    --amnui-info-dark-text: #fff;
+    --amnui-warning-dark-text: #fff;
+    --amnui-danger-dark-text: #fff;
+    --amnui-light-dark-text: #212529;
+    --amnui-dark-dark-text: #fff;
+    --amnui-white-dark-text: #212529;
+    --amnui-black-dark-text: #fff;
+
+    --amnui-primary-light-text: #212529;
+    --amnui-secondary-light-text: #fff;
+    --amnui-success-light-text: #212529;
+    --amnui-info-light-text: #fff;
+    --amnui-warning-light-text: #212529;
+    --amnui-danger-light-text: #212529;
+    --amnui-light-light-text: #212529;
+    --amnui-dark-light-text: #fff;
+    --amnui-white-light-text: #212529;
+    --amnui-black-light-text: #fff;
+}
