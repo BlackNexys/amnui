@@ -12,6 +12,7 @@ $amnui-warning: #ffc107;
 $amnui-danger: #dc3545;
 $amnui-light: #f8f9fa;
 $amnui-dark: #343a40;
+
 $amnui-white: #fff;
 $amnui-black: #000;
 
@@ -23,6 +24,9 @@ $amnui-warning-text: #fff;
 $amnui-danger-text: #fff;
 $amnui-light-text: #212529;
 $amnui-dark-text: #fff;
+
+$amnui-font-family-primary: 'Roboto', sans-serif;
+$amnui-font-family-secondary: 'Roboto', sans-serif;
 
 $themes: 
     ("name": "primary", "color": $amnui-primary, "text": $amnui-primary-text), 

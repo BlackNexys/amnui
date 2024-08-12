@@ -40,8 +40,8 @@
     --amnui-leading-12: 3rem;
 
     // Fonts
-    --amnui-font-family-primary: 'Roboto', sans-serif;
-    --amnui-font-family-secondary: 'Roboto', sans-serif;
+    --amnui-font-family-primary: #{$amnui-font-family-primary};
+    --amnui-font-family-secondary: #{$amnui-font-family-secondary};
     --amnui-font-size-xs: 0.75rem;
     --amnui-font-size-sm: 0.875rem;
     --amnui-font-size-md: 1rem;
