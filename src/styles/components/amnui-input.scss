@@ -5,12 +5,99 @@
     display: flex;
     flex-direction: column;
     margin-bottom: .5rem;
+    font-family: var(--amnui-font-family-primary);
 
     .label {
         display: block;
         font-size: var(--amnui-font-size-sm);
         font-weight: 600;
         line-height: var(--amnui-leading-6);
+        color: inherit;
+    }
+
+    .container {
+        position: relative;
+        flex-grow: 1;
+        border-radius: var(--amnui-rounding);
+        overflow: hidden;
+        display: flex;
+        align-items: stretch;
+        
+        &.w-label {
+            margin-top: var(--amnui-spacing-1);
+        }
+    }
+
+    .input {
+        display: block;
+        flex-grow: 1;
+        margin-bottom: 0;
+        border-radius: var(--amnui-rounding);
+        border: 1px solid var(--amnui-dark);
+        padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+        padding-left: var(--amnui-spacing-3);
+        outline: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: var(--amnui-transition);
+        background-color: var(--amnui-white);
+        color: var(--amnui-dark);
+        font-size: var(--amnui-font-size-sm);
+        font-family: var(--amnui-font-family-primary);
+        
+        @media (min-width: $amnui-breakpoint-sm) {
+            font-size: var(--amnui-font-size-md);
+        }
+
+        &:focus {
+            border-color: var(--amnui-primary);
+            box-shadow: 0 0 0 2px var(--amnui-primary);
+        }
+
+        &.error {
+            border-color: var(--amnui-danger);
+            color: var(--amnui-danger-dark);
+            padding-right: var(--amnui-spacing-12);
+        }
+
+        &:disabled, &:read-only {
+            background-color: var(--amnui-light);
+            color: var(--amnui-secondary);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    .input-aside {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: var(--amnui-spacing-2);
+        
+        &.error {
+            font-size: var(--amnui-font-size-sm);
+            color: var(--amnui-danger);
+            pointer-events: none;
+        }
+
+        &.required {
+            font-size: var(--amnui-font-size-xs);
+            padding-bottom: var(--amnui-spacing-2);
+            color: var(--amnui-danger);
+            pointer-events: none;
+        }
+    }
+
+    .message {
+        font-size: var(--amnui-font-size-xs);
+        color: inherit;
+        margin-top: var(--amnui-spacing-2);
+        
+        &.error {
+            color: var(--amnui-danger);
+        }
     }
 }
 

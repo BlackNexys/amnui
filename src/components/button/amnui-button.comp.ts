@@ -26,14 +26,14 @@ export default class AmnuiButton extends HTMLElement {
 
     attributeChangedCallback() {
         this.rootElement?.classList.remove(...this.rootElement.classList);
-        this.rootElement?.classList.add(this.attrs.variant, this.attrs.theme);
+        this.rootElement?.classList.add('root', this.attrs.variant, this.attrs.theme);
         this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
     }
 
     render() {
         this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
         this.shadow.innerHTML = `
-            <button id="root" class="${this.attrs.variant} ${this.attrs.theme}">
+            <button class="root ${this.attrs.variant} ${this.attrs.theme}">
                 <slot></slot>
             </button>
             <link rel="stylesheet" href="${AmnuiButton.styleSrc}" />

@@ -27,12 +27,12 @@ export default class AmnuiLink extends HTMLElement {
 
     attributeChangedCallback() {
         this.rootElement?.classList.remove(...this.rootElement.classList);
-        this.rootElement?.classList.add(this.attrs.variant, this.attrs.theme);
+        this.rootElement?.classList.add('root', this.attrs.variant, this.attrs.theme);
     }
 
     render() {
         this.shadow.innerHTML = `
-            <a id="root" href="${this.attrs.href}" class="${this.attrs.variant} ${this.attrs.theme}">
+            <a href="${this.attrs.href}" class="root ${this.attrs.variant} ${this.attrs.theme}">
                 <slot></slot>
             </a>
             <link rel="stylesheet" href="${AmnuiLink.styleSrc}" />

@@ -111,7 +111,7 @@ export default class FlexStyleClass {
 
     get style() : string {
         const rootStyle = getComputedStyle(document.documentElement);
-        return `#root {
+        return `.root {
             display: flex;
             ${this.base.getStyle()}
             @media (min-width: ${rootStyle.getPropertyValue("--amnui-breakpoint-xs")}) {

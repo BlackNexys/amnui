@@ -45,10 +45,12 @@
 
       <article>
         <h3>Inputs</h3>
-        <amnui-flex wrap="wrap" gap="1rem" align="center">
-          <amnui-input placeholder="Input" />
-          <amnui-input placeholder="Input" disabled />
-          <amnui-input placeholder="Input" readonly />
+        <amnui-flex wrap="wrap" gap="1rem" direction="column">
+          <amnui-input id="a" name="a" label="Default" placeholder="Input"></amnui-input>
+          <amnui-input id="b" name="b" label="Disabled" placeholder="Input" disabled></amnui-input>
+          <amnui-input id="c" name="c" label="Read only" placeholder="Input" readonly></amnui-input>
+          <amnui-input id="d" name="d" label="Required" placeholder="Input" required></amnui-input>
+          <amnui-input id="e" name="e" label="Error" placeholder="Input" error-msg="An Error"></amnui-input>
         </amnui-flex>
       </article>
 

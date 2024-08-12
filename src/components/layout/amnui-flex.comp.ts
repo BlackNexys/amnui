@@ -74,7 +74,7 @@ export default class AmnuiFlex extends HTMLElement {
 
     render() {
         this.shadow.innerHTML = `
-            <div id="root">
+            <div class="root">
                 <slot></slot>
             </div>
             <link rel="stylesheet" href="${this.styleSheetURL}">

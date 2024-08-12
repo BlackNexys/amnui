@@ -1,6 +1,6 @@
 @import 'src/styles/settings';
 
-#root {
+.root {
     transition: all 0.115s ease-in-out;
     font-family: var(--amnui-font-family-primary);
     font-size: var(--amnui-font-size-md);
@@ -18,12 +18,12 @@
 
     &.contained {
         padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
-        border-radius: var(--amnui-spacing-1);
+        border-radius: var(--amnui-rounding);
     }
 
     &.outlined {
         padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
-        border-radius: var(--amnui-spacing-1);
+        border-radius: var(--amnui-rounding);
     }
 
     &.text {

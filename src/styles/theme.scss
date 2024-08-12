@@ -57,6 +57,8 @@
     --amnui-white: #{$amnui-white};
     --amnui-black: #{$amnui-black};
 
+    --amnui-rounding: #{$amnui-rounding};
+
     @each $theme in $themes {
         $name: map-get($theme, "name");
         $color: map-get($theme, "color");
