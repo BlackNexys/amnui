@@ -1,11 +1,14 @@
-:root{
-    // Breakpoints
-    --amnui-breakpoint-xs: 0;
-    --amnui-breakpoint-sm: 576px;
-    --amnui-breakpoint-md: 768px;
-    --amnui-breakpoint-lg: 992px;
-    --amnui-breakpoint-xl: 1200px;
+@import "settings";
 
+:root{
+    --amnui-transition: all 0.115s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --amnui-breakpoint-xs: #{$amnui-breakpoint-xs};
+    --amnui-breakpoint-sm: #{$amnui-breakpoint-sm};
+    --amnui-breakpoint-md: #{$amnui-breakpoint-md};
+    --amnui-breakpoint-lg: #{$amnui-breakpoint-lg};
+    --amnui-breakpoint-xl: #{$amnui-breakpoint-xl};
+    
     // Spacing
     --amnui-spacing-0: 0;
     --amnui-spacing-1: 0.25rem;
@@ -37,7 +40,8 @@
     --amnui-leading-12: 3rem;
 
     // Fonts
-    --amnui-font-family: 'Roboto', sans-serif;
+    --amnui-font-family-primary: 'Roboto', sans-serif;
+    --amnui-font-family-secondary: 'Roboto', sans-serif;
     --amnui-font-size-xs: 0.75rem;
     --amnui-font-size-sm: 0.875rem;
     --amnui-font-size-md: 1rem;
@@ -50,69 +54,17 @@
 
 
     // Colors
-    --amnui-primary: #007bff;
-    --amnui-secondary: #6c757d;
-    --amnui-success: #28a745;
-    --amnui-info: #17a2b8;
-    --amnui-warning: #ffc107;
-    --amnui-danger: #dc3545;
-    --amnui-light: #f8f9fa;
-    --amnui-dark: #343a40;
-    --amnui-white: #fff;
-    --amnui-black: #000;
+    --amnui-white: #{$amnui-white};
+    --amnui-black: #{$amnui-black};
 
-    --amnui-primary-dark: #0056b3;
-    --amnui-secondary-dark: #545b62;
-    --amnui-success-dark: #218838;
-    --amnui-info-dark: #138496;
-    --amnui-warning-dark: #d39e00;
-    --amnui-danger-dark: #bd2130;
-    --amnui-light-dark: #e9ecef;
-    --amnui-dark-dark: #23272a;
-    --amnui-white-dark: #f8f9fa;
-    --amnui-black-dark: #000;
+    @each $theme in $themes {
+        $name: map-get($theme, "name");
+        $color: map-get($theme, "color");
+        $text: map-get($theme, "text");
 
-    --amnui-primary-light: #4dabf7;
-    --amnui-secondary-light: #868e96;
-    --amnui-success-light: #56c02b;
-    --amnui-info-light: #2fa4b6;
-    --amnui-warning-light: #ffd33d;
-    --amnui-danger-light: #e4606d;
-    --amnui-light-light: #f8f9fa;
-    --amnui-dark-light: #495057;
-    --amnui-white-light: #fff;
-    --amnui-black-light: #212529;
-
-    --amnui-primary-text: #fff;
-    --amnui-secondary-text: #fff;
-    --amnui-success-text: #fff;
-    --amnui-info-text: #fff;
-    --amnui-warning-text: #fff;
-    --amnui-danger-text: #fff;
-    --amnui-light-text: #212529;
-    --amnui-dark-text: #fff;
-    --amnui-white-text: #212529;
-    --amnui-black-text: #fff;
-
-    --amnui-primary-dark-text: #fff;
-    --amnui-secondary-dark-text: #fff;
-    --amnui-success-dark-text: #fff;
-    --amnui-info-dark-text: #fff;
-    --amnui-warning-dark-text: #fff;
-    --amnui-danger-dark-text: #fff;
-    --amnui-light-dark-text: #212529;
-    --amnui-dark-dark-text: #fff;
-    --amnui-white-dark-text: #212529;
-    --amnui-black-dark-text: #fff;
-
-    --amnui-primary-light-text: #212529;
-    --amnui-secondary-light-text: #fff;
-    --amnui-success-light-text: #212529;
-    --amnui-info-light-text: #fff;
-    --amnui-warning-light-text: #212529;
-    --amnui-danger-light-text: #212529;
-    --amnui-light-light-text: #212529;
-    --amnui-dark-light-text: #fff;
-    --amnui-white-light-text: #212529;
-    --amnui-black-light-text: #fff;
+        --amnui-#{$name}: #{$color};
+        --amnui-#{$name}-dark: #{darken($color, 10%)};
+        --amnui-#{$name}-light: #{lighten($color, 10%)};
+        --amnui-#{$name}-text: #{$text};
+    }
 }

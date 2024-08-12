@@ -1,1 +1,35 @@
-$themes: primary, secondary, success, info, warning, danger;
+$amnui-breakpoint-xs: 576px;
+$amnui-breakpoint-sm: 768px;
+$amnui-breakpoint-md: 992px;
+$amnui-breakpoint-lg: 1200px;
+$amnui-breakpoint-xl: 1400px;
+
+$amnui-primary: #007bff;
+$amnui-secondary: #6c757d;
+$amnui-success: #28a745;
+$amnui-info: #17a2b8;
+$amnui-warning: #ffc107;
+$amnui-danger: #dc3545;
+$amnui-light: #f8f9fa;
+$amnui-dark: #343a40;
+$amnui-white: #fff;
+$amnui-black: #000;
+
+$amnui-primary-text: #fff;
+$amnui-secondary-text: #fff;
+$amnui-success-text: #fff;
+$amnui-info-text: #fff;
+$amnui-warning-text: #fff;
+$amnui-danger-text: #fff;
+$amnui-light-text: #212529;
+$amnui-dark-text: #fff;
+
+$themes: 
+    ("name": "primary", "color": $amnui-primary, "text": $amnui-primary-text), 
+    ("name": "secondary", "color": $amnui-secondary, "text": $amnui-secondary-text),
+    ("name": "success", "color": $amnui-success, "text": $amnui-success-text),
+    ("name": "info", "color": $amnui-info, "text": $amnui-info-text),
+    ("name": "warning", "color": $amnui-warning, "text": $amnui-warning-text),
+    ("name": "danger", "color": $amnui-danger, "text": $amnui-danger-text),
+    ("name": "light", "color": $amnui-light, "text": $amnui-light-text),
+    ("name": "dark", "color": $amnui-dark, "text": $amnui-dark-text);

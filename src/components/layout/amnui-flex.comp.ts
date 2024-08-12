@@ -1,8 +1,13 @@
+import FlexStyleClass from "./FlexStyle.class";
+import ChecksumService from "/src/services/checksum.service";
 export default class AmnuiFlex extends HTMLElement {
+    static styleSources: any = {};
     shadow: ShadowRoot;
     styleSheet?: HTMLLinkElement;
     rootElement?: HTMLDivElement;
-    static styleSrc = new URL("/src/styles/components/amnui-flex.scss", import.meta.url).href;
+
+    styleSheetURL: string;
+    styleCheckSum: string = "";
 
     static get observedAttributes() {
         return [
@@ -22,6 +27,7 @@ export default class AmnuiFlex extends HTMLElement {
 
     constructor() {
         super();
+        this.styleSheetURL = this.getStyleSheetUrl();
         this.shadow = this.attachShadow({ mode: "open" });
     }
 
@@ -29,44 +35,49 @@ export default class AmnuiFlex extends HTMLElement {
         this.render();
     }
 
-    get styleClasses() {
-        const { align, justify, direction, wrap, self, content } = {
-            align: this.getAttribute("align") || "start", // Class
-            justify: this.getAttribute("justify") || "start", // Class
-            direction: this.getAttribute("direction") || "row", // Class
-            wrap: this.getAttribute("wrap") || "wrap", // Class
-            self: this.getAttribute("align-self") || "auto", // Class
-            content: this.getAttribute("align-content") || "normal" // Class
-        };
-        return `
-            align--${align} justify--${justify} direction--${direction} wrap--${wrap} align-self--${self} align-content--${content}
-        `;
-    }
-
-    get styleProps() {
-        const { inline, gap, grow, shrink, basis, order } = {
-            inline: this.hasAttribute("inline"), // Style
-            gap: this.getAttribute("gap") || "0", // Style
-            grow: this.getAttribute("grow") || "0", // Style
-            shrink: this.getAttribute("shrink") || "1", // Style
-            basis: this.getAttribute("basis") || "auto", // Style
-            order: this.getAttribute("order") || "0" // Style
-        };
-        return `
-            display: ${inline ? "inline-flex" : "flex"}; gap: ${gap}; flex-grow: ${grow}; flex-shrink: ${shrink}; flex-basis: ${basis}; order: ${order};
-        `;
-    }
-
     attributeChangedCallback() {
-        this.render();
+        // If the style has changed, update the stylesheet
+        if (this.getStyleChecksum() !== this.styleCheckSum) {
+            this.updateStyleSheet();
+        }
+    }
+
+    getStyleSheetUrl() {
+        this.styleCheckSum = this.getStyleChecksum();
+        // If the style has not been generated yet, generate it
+        if (!AmnuiFlex.styleSources[this.styleCheckSum]) {
+            // Create a new style blob and store it in the styleSources object, to reduce the number of stylesheets
+            const style = new Blob([new FlexStyleClass(this.attributes).style]);
+            AmnuiFlex.styleSources[this.styleCheckSum] = URL.createObjectURL(style);
+        }
+
+        return AmnuiFlex.styleSources[this.styleCheckSum];
+    }
+
+    getStyleChecksum() {
+        // Generate a checksum based on the attributes
+        return ChecksumService.get(
+            Object.values(this.attributes)
+                .map((x) => x.name + ":" + x.value)
+                .join("|")
+        );
+    }
+
+    updateStyleSheet() {
+        this.styleSheetURL = this.getStyleSheetUrl();
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = this.styleSheetURL;
+        this.styleSheet?.replaceWith(link);
+        this.styleSheet = link;
     }
 
     render() {
         this.shadow.innerHTML = `
-            <div id="root" class="${this.styleClasses}" style="${this.styleProps}">
+            <div id="root">
                 <slot></slot>
             </div>
-            <link rel="stylesheet" href="${AmnuiFlex.styleSrc}" />
+            <link rel="stylesheet" href="${this.styleSheetURL}">
         `;
         this.rootElement = this.shadow.querySelector("#root")!;
         this.styleSheet = this.shadow.querySelector("link")!;

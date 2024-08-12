@@ -2,7 +2,7 @@
 
 #root {
     transition: all 0.115s ease-in-out;
-    font-family: var(--amnui-font-family);
+    font-family: var(--amnui-font-family-primary);
     font-size: var(--amnui-font-size-md);
     outline: none;
     border: none;
@@ -32,47 +32,48 @@
     }
 
     @each $theme in $themes {
-        &.contained.#{$theme} {
-            background-color: var(--amnui-#{$theme});
-            color: var(--amnui-#{$theme}-text);
-            border: 1px solid var(--amnui-#{$theme});
+        $name: map-get($theme, "name");
+        &.contained.#{$name} {
+            background-color: var(--amnui-#{$name});
+            color: var(--amnui-#{$name}-text);
+            border: 1px solid var(--amnui-#{$name});
         }
 
-        &.outlined.#{$theme} {
+        &.outlined.#{$name} {
             background-color: transparent;
-            color: var(--amnui-#{$theme});
-            border: 1px solid var(--amnui-#{$theme});
+            color: var(--amnui-#{$name});
+            border: 1px solid var(--amnui-#{$name});
         }
 
-        &.text.#{$theme} {
+        &.text.#{$name} {
             background-color: transparent;
-            color: var(--amnui-#{$theme});
+            color: var(--amnui-#{$name});
             border: none;
         }
 
-        &.contained.#{$theme}:hover, &.outlined.#{$theme}:hover {
-            background-color: var(--amnui-#{$theme}-dark);
-            color: var(--amnui-#{$theme}-dark-text);
-            border: 1px solid var(--amnui-#{$theme}-dark);
+        &.contained.#{$name}:hover, &.outlined.#{$name}:hover {
+            background-color: var(--amnui-#{$name}-dark);
+            color: var(--amnui-#{$name}-text);
+            border: 1px solid var(--amnui-#{$name}-dark);
             transform: scale(1.05);
-            outline: var(--amnui-#{$theme});
+            outline: var(--amnui-#{$name});
         }
 
-        &.text.#{$theme}:hover {
-            color: var(--amnui-#{$theme}-dark);
+        &.text.#{$name}:hover {
+            color: var(--amnui-#{$name}-dark);
             text-decoration: underline;
         }
 
-        &.contained.#{$theme}:active, &.outlined.#{$theme}:active {
-            background-color: var(--amnui-#{$theme}-light);
-            color: var(--amnui-#{$theme}-light-text);
-            border: 1px solid var(--amnui-#{$theme}-light);
-            outline: var(--amnui-#{$theme});
+        &.contained.#{$name}:active, &.outlined.#{$name}:active {
+            background-color: var(--amnui-#{$name}-light);
+            color: var(--amnui-#{$name}-text);
+            border: 1px solid var(--amnui-#{$name}-light);
+            outline: var(--amnui-#{$name});
             transform: scale(0.95);
         }
 
-        &.text.#{$theme}:active {
-            color: var(--amnui-#{$theme}-light);
+        &.text.#{$name}:active {
+            color: var(--amnui-#{$name}-light);
             text-decoration: underline;
         }
     }
@@ -85,14 +86,15 @@
     }
     
     @each $theme in $themes {
-        .contained.#{$theme}, &.outlined.#{$theme} {
-            background-color: var(--amnui-#{$theme}-light);
-            color: var(--amnui-#{$theme}-light-text);
-            border: 1px solid var(--amnui-#{$theme}-light);
+        $name: map-get($theme, "name");
+        .contained.#{$name}, &.outlined.#{$name} {
+            background-color: var(--amnui-#{$name}-light);
+            color: var(--amnui-#{$name}-text);
+            border: 1px solid var(--amnui-#{$name}-light);
         }
 
-        .text.#{$theme} {
-            background-color: var(--amnui-#{$theme}-light);
+        .text.#{$name} {
+            background-color: var(--amnui-#{$name}-light);
         }
     }
 }
