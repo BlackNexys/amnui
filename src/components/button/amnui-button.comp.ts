@@ -1,8 +1,8 @@
 export default class AmnuiButton extends HTMLElement {
     shadow: ShadowRoot;
-    styleSheet?: HTMLLinkElement;
+    styleSheet?: HTMLStyleElement;
     rootElement?: HTMLDivElement;
-    static styleSrc = new URL("/src/styles/components/amnui-button.scss", import.meta.url).href;
+    static styleText = "";
 
     static get observedAttributes() {
         return ["variant", "theme", "disabled"];
@@ -11,6 +11,12 @@ export default class AmnuiButton extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });
+    }
+
+    static async initStyles() {
+        if (this.styleText) return;
+        const mod = (await import("../../styles/components/amnui-button.scss?inline")) as any;
+        this.styleText = String(mod?.default ?? "");
     }
 
     connectedCallback() {
@@ -32,13 +38,18 @@ export default class AmnuiButton extends HTMLElement {
 
     render() {
         this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
+        // Ensure styles are loaded (async) before first render.
+        // If it isn't ready yet, render skeleton then re-render.
+        if (!AmnuiButton.styleText) {
+            void AmnuiButton.initStyles().then(() => this.render());
+        }
         this.shadow.innerHTML = `
             <button class="root ${this.attrs.variant} ${this.attrs.theme}">
                 <slot></slot>
             </button>
-            <link rel="stylesheet" href="${AmnuiButton.styleSrc}" />
+            <style>${AmnuiButton.styleText}</style>
         `;
-        this.rootElement = this.shadow.querySelector("#root")!;
-        this.styleSheet = this.shadow.querySelector("link")!;
+        this.rootElement = this.shadow.querySelector(".root") as any;
+        this.styleSheet = this.shadow.querySelector("style")!;
     }
 }

@@ -1,8 +1,8 @@
 export default class AmnuiLink extends HTMLElement {
     shadow: ShadowRoot;
-    styleSheet?: HTMLLinkElement;
+    styleSheet?: HTMLStyleElement;
     rootElement?: HTMLAnchorElement;
-    static styleSrc = new URL("/src/styles/components/amnui-button.scss", import.meta.url).href;
+    static styleText = "";
 
     static get observedAttributes() {
         return ["variant", "theme", "href"];
@@ -11,6 +11,12 @@ export default class AmnuiLink extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });
+    }
+
+    static async initStyles() {
+        if (this.styleText) return;
+        const mod = (await import("../../styles/components/amnui-button.scss?inline")) as any;
+        this.styleText = String(mod?.default ?? "");
     }
 
     connectedCallback() {
@@ -31,13 +37,16 @@ export default class AmnuiLink extends HTMLElement {
     }
 
     render() {
+        if (!AmnuiLink.styleText) {
+            void AmnuiLink.initStyles().then(() => this.render());
+        }
         this.shadow.innerHTML = `
             <a href="${this.attrs.href}" class="root ${this.attrs.variant} ${this.attrs.theme}">
                 <slot></slot>
             </a>
-            <link rel="stylesheet" href="${AmnuiLink.styleSrc}" />
+            <style>${AmnuiLink.styleText}</style>
         `;
-        this.rootElement = this.shadow.querySelector("#root")!;
-        this.styleSheet = this.shadow.querySelector("link")!;
+        this.rootElement = this.shadow.querySelector("a.root")!;
+        this.styleSheet = this.shadow.querySelector("style")!;
     }
 }

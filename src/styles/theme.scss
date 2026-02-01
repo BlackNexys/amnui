@@ -1,4 +1,6 @@
-@import "settings";
+@use "sass:map";
+@use "sass:color";
+@use "settings" as *;
 
 :root{
     --amnui-transition: all 0.115s cubic-bezier(0.4, 0, 0.2, 1);
@@ -60,13 +62,13 @@
     --amnui-rounding: #{$amnui-rounding};
 
     @each $theme in $themes {
-        $name: map-get($theme, "name");
-        $color: map-get($theme, "color");
-        $text: map-get($theme, "text");
+        $name: map.get($theme, "name");
+        $color: map.get($theme, "color");
+        $text: map.get($theme, "text");
 
         --amnui-#{$name}: #{$color};
-        --amnui-#{$name}-dark: #{darken($color, 10%)};
-        --amnui-#{$name}-light: #{lighten($color, 10%)};
+        --amnui-#{$name}-dark: #{color.adjust($color, $lightness: -10%)};
+        --amnui-#{$name}-light: #{color.adjust($color, $lightness: 10%)};
         --amnui-#{$name}-text: #{$text};
     }
 }

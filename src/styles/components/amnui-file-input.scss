@@ -1,0 +1,103 @@
+@use '../settings' as *;
+
+.root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--amnui-font-family-primary);
+
+    .label {
+        display: block;
+        font-size: var(--amnui-font-size-sm);
+        font-weight: 600;
+        line-height: var(--amnui-leading-6);
+        color: inherit;
+    }
+
+    .container {
+        position: relative;
+        flex-grow: 1;
+        min-width: 0;
+        border-radius: var(--amnui-rounding);
+        overflow: hidden;
+        display: flex;
+        align-items: stretch;
+
+        &.w-label {
+            margin-top: var(--amnui-spacing-1);
+        }
+    }
+
+    .button {
+        flex: 0 0 auto;
+        border: 1px solid var(--amnui-dark);
+        border-right: 0;
+        background-color: var(--amnui-light);
+        color: var(--amnui-dark);
+        padding: var(--amnui-spacing-2) var(--amnui-spacing-3);
+        font-size: var(--amnui-font-size-sm);
+        font-family: var(--amnui-font-family-primary);
+        cursor: pointer;
+        transition: var(--amnui-transition);
+
+        @media (min-width: $amnui-breakpoint-sm) {
+            font-size: var(--amnui-font-size-md);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            color: var(--amnui-secondary);
+        }
+    }
+
+    .filename {
+        flex: 1 1 auto;
+        min-width: 0;
+        border: 1px solid var(--amnui-dark);
+        background-color: var(--amnui-white);
+        color: var(--amnui-dark);
+        padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+        padding-left: var(--amnui-spacing-3);
+        font-size: var(--amnui-font-size-sm);
+        font-family: var(--amnui-font-family-primary);
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @media (min-width: $amnui-breakpoint-sm) {
+            font-size: var(--amnui-font-size-md);
+        }
+    }
+
+    .native {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+    }
+
+    .message {
+        font-size: var(--amnui-font-size-xs);
+        color: inherit;
+        margin-top: var(--amnui-spacing-2);
+
+        &.error {
+            color: var(--amnui-danger);
+        }
+    }
+}
+
+:host([disabled]) {
+    .root {
+        filter: grayscale(.75);
+        cursor: not-allowed;
+    }
+}

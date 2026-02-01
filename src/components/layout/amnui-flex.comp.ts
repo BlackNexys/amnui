@@ -1,5 +1,5 @@
 import FlexStyleClass from "./FlexStyle.class";
-import ChecksumService from "/src/services/checksum.service";
+import ChecksumService from "../../services/checksum.service";
 export default class AmnuiFlex extends HTMLElement {
     static styleSources: any = {};
     shadow: ShadowRoot;
@@ -79,7 +79,7 @@ export default class AmnuiFlex extends HTMLElement {
             </div>
             <link rel="stylesheet" href="${this.styleSheetURL}">
         `;
-        this.rootElement = this.shadow.querySelector("#root")!;
+        this.rootElement = this.shadow.querySelector(".root") as any;
         this.styleSheet = this.shadow.querySelector("link")!;
     }
 }

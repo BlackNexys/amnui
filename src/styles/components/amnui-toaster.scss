@@ -1,0 +1,46 @@
+@use '../settings' as *;
+
+.root {
+    position: fixed;
+    top: var(--amnui-spacing-4);
+    right: var(--amnui-spacing-4);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--amnui-spacing-2);
+    pointer-events: none;
+    max-width: min(26rem, calc(100vw - var(--amnui-spacing-8)));
+    font-family: var(--amnui-font-family-primary);
+}
+
+.toastWrap {
+    pointer-events: auto;
+    animation: amnui-toast-in 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+amnui-button.toastBtn {
+    display: block;
+    width: 100%;
+}
+
+.toastContent {
+    width: 100%;
+}
+
+.toastMessage {
+    display: block;
+    font-size: var(--amnui-font-size-sm);
+    line-height: var(--amnui-leading-5);
+    word-break: break-word;
+}
+
+@keyframes amnui-toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

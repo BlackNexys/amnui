@@ -1,8 +1,10 @@
 export default class AmnuiInput extends HTMLElement {
     shadow: ShadowRoot;
-    styleSheet?: HTMLLinkElement;
+    styleSheet?: HTMLStyleElement;
     rootElement?: HTMLDivElement;
-    static styleSrc = new URL("/src/styles/components/amnui-input.scss", import.meta.url).href;
+    static styleText = "";
+
+    private currentType: string | null = null;
 
     static get observedAttributes() {
         return [
@@ -31,7 +33,14 @@ export default class AmnuiInput extends HTMLElement {
         this.shadow = this.attachShadow({ mode: "open" });
     }
 
+    static async initStyles() {
+        if (this.styleText) return;
+        const mod = (await import("../../styles/components/amnui-input.scss?inline")) as any;
+        this.styleText = String(mod?.default ?? "");
+    }
+
     connectedCallback() {
+        this.currentType = this.props.type;
         this.render();
     }
 
@@ -58,17 +67,44 @@ export default class AmnuiInput extends HTMLElement {
         };
     }
 
-    attributeChangedCallback() {
-        this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
-    }
+    attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+        if (oldValue === newValue) return;
 
-    noErrorClasses = "'text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-primary-300': !props.errorMsg"
-    errorClasses="text-danger-900 ring-danger-300 placeholder:text-danger-300 focus:ring-danger-500 pr-10"
-    disabled="props.disabled ? 'pointer-events-none' : 'pointer-events-auto'"
+        const inputEl = this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement | null;
+
+        if (name === "value" && inputEl) {
+            inputEl.value = newValue ?? "";
+            return;
+        }
+
+        if (name === "disabled" && inputEl) {
+            inputEl.disabled = this.hasAttribute("disabled");
+            this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
+            return;
+        }
+
+        if (name === "type") {
+            this.currentType = newValue || "text";
+        }
+
+        this.render();
+    }
 
     render() {
         const props = this.props;
         this.style.pointerEvents = this.hasAttribute("disabled") ? "none" : "auto";
+        if (!AmnuiInput.styleText) {
+            void AmnuiInput.initStyles().then(() => this.render());
+        }
+
+        const baseType = props.type || "text";
+        if (!this.currentType || this.currentType !== baseType) {
+            // Reset when type attribute changes from outside.
+            this.currentType = baseType;
+        }
+
+        const effectiveType = baseType === "password" ? this.currentType : baseType;
+
         this.shadow.innerHTML = `
             <div class="root">
                 ${props.label ? `<label for="${props.id}" class="label">${props.label}</label>` : ""}
@@ -77,7 +113,7 @@ export default class AmnuiInput extends HTMLElement {
                         ref="inputEl"
                         id="${props.id}" 
                         value="${props.value}" 
-                        type="${props.type}" 
+                        type="${effectiveType}" 
                         name="${props.name}"
                         ${props.disabled ? "disabled" : ""}
                         ${props.required ? "required" : ""}
@@ -104,18 +140,28 @@ export default class AmnuiInput extends HTMLElement {
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                         </svg>`: ""
                     }
-                    ${props.type == "password" ? `<button type="button" tabindex="-1" class="group absolute right-0 top-0 bottom-0 flex justify-center items-center px-1 border-0 outline-0 shadow-none hover:shadow-none " @click="toggleDisplayPassword">
-                            <component is="currentType == 'password' ? 'w-icon-invisible' : 'w-icon-visible' " class="group-hover:scale-125 transition-transform" />
-                        </button>` : ""
-                    }
+                    ${baseType === "password" ? `<button type="button" class="toggle" aria-label="Toggle password visibility">${effectiveType === "password" ? "Show" : "Hide"}</button>` : ""}
                 </div>
                 ${props.errorMsg ? `<p id="${props.id}-error" class="message error">${props.errorMsg}</p>` : ""}
                 ${!props.errorMsg && props.description ? `<p id="${props.id}-description" class="message">${props.description}</p>` : ""}
                 <slot></slot>
             </div>
-            <link rel="stylesheet" href="${AmnuiInput.styleSrc}" />
+            <style>${AmnuiInput.styleText}</style>
         `;
-        this.rootElement = this.shadow.querySelector('[ref="inputEl"]')!;
-        this.styleSheet = this.shadow.querySelector("link")!;
+
+        const inputEl = this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement;
+        this.rootElement = inputEl as any;
+        this.styleSheet = this.shadow.querySelector("style")!;
+
+        const toggleBtn = this.shadow.querySelector("button.toggle") as HTMLButtonElement | null;
+        if (toggleBtn) {
+            toggleBtn.addEventListener("click", () => {
+                if (baseType !== "password") return;
+                this.currentType = this.currentType === "password" ? "text" : "password";
+                this.render();
+                // keep focus in the input
+                (this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement | null)?.focus();
+            });
+        }
     }
 }
