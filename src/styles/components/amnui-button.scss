@@ -5,6 +5,10 @@
     transition: all 0.115s ease-in-out;
     font-family: var(--amnui-font-family-primary);
     font-size: var(--amnui-font-size-md);
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: none;
+    text-shadow: none;
     outline: none;
     border: none;
     text-align: center;
@@ -17,14 +21,26 @@
     gap: var(--amnui-spacing-2);
     cursor: pointer;
 
+    &.contained::before, &.outlined::before, &.toast::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: var(--amnui-control-sheen, none);
+        background-blend-mode: screen;
+        opacity: var(--amnui-holo-opacity, 0);
+    }
+
     &.contained {
         padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
         border-radius: var(--amnui-rounding);
+        border: 1px solid transparent;
     }
 
     &.outlined {
         padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
         border-radius: var(--amnui-rounding);
+        border: 1px solid transparent;
     }
 
     &.text {
@@ -40,6 +56,7 @@
         white-space: normal;
         align-items: center;
         justify-content: flex-start;
+        border: 1px solid transparent;
     }
 
     @each $theme in $themes {
@@ -64,7 +81,7 @@
 
         &.toast.#{$name} {
             background-color: var(--amnui-white);
-            color: var(--amnui-dark);
+            color: var(--amnui-light-text);
             border: 1px solid var(--amnui-#{$name});
         }
 
@@ -72,13 +89,13 @@
             background-color: var(--amnui-#{$name}-dark);
             color: var(--amnui-#{$name}-text);
             border: 1px solid var(--amnui-#{$name}-dark);
-            transform: scale(1.05);
             outline: var(--amnui-#{$name});
+            box-shadow: 0 0 0 2px var(--amnui-border-glow);
         }
 
         &.toast.#{$name}:hover {
-            background-color: var(--amnui-light);
-            color: var(--amnui-dark);
+            background-color: var(--amnui-interaction-hover-bg);
+            color: var(--amnui-light-text);
             border: 1px solid var(--amnui-#{$name});
             transform: none;
         }
@@ -93,12 +110,12 @@
             color: var(--amnui-#{$name}-text);
             border: 1px solid var(--amnui-#{$name}-light);
             outline: var(--amnui-#{$name});
-            transform: scale(0.95);
+            box-shadow: 0 0 0 2px var(--amnui-border-glow);
         }
 
         &.toast.#{$name}:active {
-            background-color: var(--amnui-light);
-            color: var(--amnui-dark);
+            background-color: var(--amnui-interaction-active-bg);
+            color: var(--amnui-light-text);
             border: 1px solid var(--amnui-#{$name});
             outline: var(--amnui-#{$name});
             transform: none;

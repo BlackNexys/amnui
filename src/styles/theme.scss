@@ -4,6 +4,12 @@
 
 :root{
     --amnui-transition: all 0.115s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Interaction tokens (override these from the app/theme) */
+    --amnui-interaction-hover-bg: #{$amnui-interaction-hover-bg};
+    --amnui-interaction-active-bg: #{$amnui-interaction-active-bg};
+    --amnui-border-glow: #{$amnui-border-glow};
+    --amnui-border-glow-weak: #{$amnui-border-glow-weak};
     
     --amnui-breakpoint-xs: #{$amnui-breakpoint-xs};
     --amnui-breakpoint-sm: #{$amnui-breakpoint-sm};

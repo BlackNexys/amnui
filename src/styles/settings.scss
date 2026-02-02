@@ -13,6 +13,12 @@ $amnui-danger: #dc3545;
 $amnui-light: #f8f9fa;
 $amnui-dark: #343a40;
 
+/* Interaction tokens (override these from the app/theme) */
+$amnui-interaction-hover-bg: rgba(0, 123, 255, 0.10);
+$amnui-interaction-active-bg: rgba(0, 123, 255, 0.14);
+$amnui-border-glow: rgba(0, 123, 255, 0.25);
+$amnui-border-glow-weak: rgba(0, 123, 255, 0.18);
+
 $amnui-white: #fff;
 $amnui-black: #000;
 

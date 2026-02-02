@@ -10,6 +10,8 @@
         display: block;
         font-size: var(--amnui-font-size-sm);
         font-weight: 600;
+        letter-spacing: normal;
+        text-transform: none;
         line-height: var(--amnui-leading-6);
         color: inherit;
     }
@@ -30,13 +32,18 @@
 
     .button {
         flex: 0 0 auto;
-        border: 1px solid var(--amnui-dark);
+        border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
         border-right: 0;
-        background-color: var(--amnui-light);
-        color: var(--amnui-dark);
+        background-color: var(--amnui-control-bg, var(--amnui-white));
+        background-image: var(--amnui-control-sheen, none);
+        background-blend-mode: screen;
+        color: var(--amnui-light-text);
         padding: var(--amnui-spacing-2) var(--amnui-spacing-3);
         font-size: var(--amnui-font-size-sm);
         font-family: var(--amnui-font-family-primary);
+        font-weight: 600;
+        letter-spacing: normal;
+        text-transform: none;
         cursor: pointer;
         transition: var(--amnui-transition);
 
@@ -48,27 +55,42 @@
             outline: none;
         }
 
+        &:not(:disabled):hover {
+            background-color: var(--amnui-interaction-hover-bg);
+            box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+        }
+
         &:disabled {
             cursor: not-allowed;
-            color: var(--amnui-secondary);
+            background-color: var(--amnui-disabled-bg, var(--amnui-light));
+            color: var(--amnui-disabled-text, var(--amnui-secondary));
+            border-color: var(--amnui-secondary);
         }
     }
 
     .filename {
         flex: 1 1 auto;
         min-width: 0;
-        border: 1px solid var(--amnui-dark);
-        background-color: var(--amnui-white);
-        color: var(--amnui-dark);
+        border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+        background-color: var(--amnui-control-bg, var(--amnui-white));
+        background-image: var(--amnui-control-sheen, none);
+        background-blend-mode: screen;
+        color: var(--amnui-light-text);
         padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
         padding-left: var(--amnui-spacing-3);
         font-size: var(--amnui-font-size-sm);
         font-family: var(--amnui-font-family-primary);
+        font-weight: 500;
         display: flex;
         align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &:hover {
+            border-color: var(--amnui-focus-ring, var(--amnui-primary));
+            box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+        }
 
         @media (min-width: $amnui-breakpoint-sm) {
             font-size: var(--amnui-font-size-md);
@@ -99,5 +121,11 @@
     .root {
         filter: grayscale(.75);
         cursor: not-allowed;
+    }
+
+    .filename {
+        background-color: var(--amnui-disabled-bg, var(--amnui-light));
+        color: var(--amnui-disabled-text, var(--amnui-secondary));
+        border-color: var(--amnui-secondary);
     }
 }
