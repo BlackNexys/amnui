@@ -3,6 +3,7 @@ export default class AmnuiCheckbox extends HTMLElement {
     styleSheet?: HTMLStyleElement;
     inputEl?: HTMLInputElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     static get observedAttributes() {
         return ["id", "checked", "name", "value", "description", "disabled", "required", "error-msg", "label"];
@@ -15,7 +16,7 @@ export default class AmnuiCheckbox extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-checkbox.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-checkbox.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -94,7 +95,7 @@ export default class AmnuiCheckbox extends HTMLElement {
 
                 <slot></slot>
             </div>
-            <style>${AmnuiCheckbox.styleText}</style>
+            <style>${AmnuiCheckbox.styleText}\n${AmnuiCheckbox.styleOverrideText}</style>
         `;
 
         this.inputEl = this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement;
@@ -103,7 +104,7 @@ export default class AmnuiCheckbox extends HTMLElement {
         this.inputEl.addEventListener("change", () => {
             if (this.inputEl?.checked) this.setAttribute("checked", "");
             else this.removeAttribute("checked");
-            this.dispatchEvent(new Event("change", { bubbles: true }));
+            this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
         });
     }
 }

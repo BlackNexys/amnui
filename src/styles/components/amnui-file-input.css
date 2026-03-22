@@ -1,0 +1,117 @@
+/* Interaction tokens (override these from the app/theme) */
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--amnui-font-family-primary);
+}
+.root .label {
+  display: block;
+  font-size: var(--amnui-font-size-sm);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: var(--amnui-leading-6);
+  color: inherit;
+}
+.root .container {
+  position: relative;
+  flex-grow: 1;
+  min-width: 0;
+  border-radius: var(--amnui-rounding);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+.root .container.w-label {
+  margin-top: var(--amnui-spacing-1);
+}
+.root .button {
+  flex: 0 0 auto;
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  border-right: 0;
+  background-color: var(--amnui-control-bg, var(--amnui-white));
+  background-image: var(--amnui-control-sheen, none);
+  background-blend-mode: screen;
+  color: var(--amnui-light-text);
+  padding: var(--amnui-spacing-2) var(--amnui-spacing-3);
+  font-size: var(--amnui-font-size-sm);
+  font-family: var(--amnui-font-family-primary);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  transition: var(--amnui-transition);
+}
+@media (min-width: 768px) {
+  .root .button {
+    font-size: var(--amnui-font-size-md);
+  }
+}
+.root .button:focus {
+  outline: none;
+}
+.root .button:not(:disabled):hover {
+  background-color: var(--amnui-interaction-hover-bg);
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .button:disabled {
+  cursor: not-allowed;
+  background-color: var(--amnui-disabled-bg, var(--amnui-light));
+  color: var(--amnui-disabled-text, var(--amnui-secondary));
+  border-color: var(--amnui-secondary);
+}
+.root .filename {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  background-color: var(--amnui-control-bg, var(--amnui-white));
+  background-image: var(--amnui-control-sheen, none);
+  background-blend-mode: screen;
+  color: var(--amnui-light-text);
+  padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+  padding-left: var(--amnui-spacing-3);
+  font-size: var(--amnui-font-size-sm);
+  font-family: var(--amnui-font-family-primary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.root .filename:hover {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+@media (min-width: 768px) {
+  .root .filename {
+    font-size: var(--amnui-font-size-md);
+  }
+}
+.root .native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+.root .message {
+  font-size: var(--amnui-font-size-xs);
+  color: inherit;
+  margin-top: var(--amnui-spacing-2);
+}
+.root .message.error {
+  color: var(--amnui-danger);
+}
+
+:host([disabled]) .root {
+  filter: grayscale(0.75);
+  cursor: not-allowed;
+}
+:host([disabled]) .filename {
+  background-color: var(--amnui-disabled-bg, var(--amnui-light));
+  color: var(--amnui-disabled-text, var(--amnui-secondary));
+  border-color: var(--amnui-secondary);
+}

@@ -5,6 +5,7 @@ export default class AmnuiFileInput extends HTMLElement {
     fileNameEl?: HTMLElement;
     buttonEl?: HTMLButtonElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     static get observedAttributes() {
         return [
@@ -27,7 +28,7 @@ export default class AmnuiFileInput extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-file-input.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-file-input.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -117,7 +118,7 @@ export default class AmnuiFileInput extends HTMLElement {
                 ${!props.errorMsg && props.description ? `<p id="${props.id}-description" class="message">${props.description}</p>` : ""}
                 <slot></slot>
             </div>
-            <style>${AmnuiFileInput.styleText}</style>
+            <style>${AmnuiFileInput.styleText}\n${AmnuiFileInput.styleOverrideText}</style>
         `;
 
         this.inputEl = this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement;
@@ -132,9 +133,13 @@ export default class AmnuiFileInput extends HTMLElement {
 
         this.inputEl.addEventListener("change", () => {
             this.updateFileName();
-            this.dispatchEvent(new Event("change", { bubbles: true }));
+            this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
         });
 
         this.updateFileName();
+    }
+
+    get files() {
+        return this.inputEl?.files ?? null;
     }
 }

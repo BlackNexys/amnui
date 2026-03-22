@@ -3,6 +3,7 @@ export default class AmnuiButton extends HTMLElement {
     styleSheet?: HTMLStyleElement;
     rootElement?: HTMLDivElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     static get observedAttributes() {
         return ["variant", "theme", "disabled"];
@@ -15,7 +16,7 @@ export default class AmnuiButton extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-button.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-button.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -44,10 +45,10 @@ export default class AmnuiButton extends HTMLElement {
             void AmnuiButton.initStyles().then(() => this.render());
         }
         this.shadow.innerHTML = `
-            <button class="root ${this.attrs.variant} ${this.attrs.theme}">
+            <button class="root ${this.attrs.variant} ${this.attrs.theme}" ${this.hasAttribute("disabled") ? "disabled" : ""}>
                 <slot></slot>
             </button>
-            <style>${AmnuiButton.styleText}</style>
+            <style>${AmnuiButton.styleText}\n${AmnuiButton.styleOverrideText}</style>
         `;
         this.rootElement = this.shadow.querySelector(".root") as any;
         this.styleSheet = this.shadow.querySelector("style")!;

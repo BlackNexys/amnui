@@ -1,0 +1,87 @@
+/* Interaction tokens (override these from the app/theme) */
+.root {
+  font-family: var(--amnui-font-family-primary);
+  color: inherit;
+}
+.root .row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--amnui-spacing-2);
+  cursor: pointer;
+  user-select: none;
+}
+.root .checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: calc(var(--amnui-rounding) * 0.75);
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  background-color: var(--amnui-control-bg, var(--amnui-white));
+  background-image: var(--amnui-control-sheen, none);
+  background-blend-mode: screen;
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  margin: 0;
+  transition: var(--amnui-transition);
+  outline: none;
+}
+.root .checkbox::after {
+  content: "";
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid var(--amnui-dark-text);
+  border-bottom: 2px solid var(--amnui-dark-text);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: var(--amnui-transition);
+}
+.root .checkbox:checked {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  background-color: var(--amnui-focus-ring, var(--amnui-primary));
+  background-image: none;
+}
+.root .checkbox:checked::after {
+  opacity: 1;
+}
+.root .row:hover .checkbox:not(:disabled) {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .checkbox:focus-visible {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .labelText {
+  font-size: var(--amnui-font-size-sm);
+  line-height: var(--amnui-leading-6);
+  color: inherit;
+}
+@media (min-width: 768px) {
+  .root .labelText {
+    font-size: var(--amnui-font-size-md);
+  }
+}
+.root .message {
+  font-size: var(--amnui-font-size-xs);
+  color: inherit;
+  margin-top: var(--amnui-spacing-2);
+}
+.root .message.error {
+  color: var(--amnui-danger);
+}
+
+:host([disabled]) .root {
+  filter: grayscale(0.75);
+  cursor: not-allowed;
+}
+:host([disabled]) .row {
+  cursor: not-allowed;
+}
+:host([disabled]) .checkbox {
+  background-color: var(--amnui-disabled-bg, var(--amnui-light));
+  border-color: var(--amnui-control-border, var(--amnui-secondary));
+}
+:host([disabled]) .checkbox::after {
+  opacity: 0;
+}

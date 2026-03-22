@@ -3,6 +3,7 @@ export default class AmnuiLink extends HTMLElement {
     styleSheet?: HTMLStyleElement;
     rootElement?: HTMLAnchorElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     static get observedAttributes() {
         return ["variant", "theme", "href"];
@@ -15,7 +16,7 @@ export default class AmnuiLink extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-button.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-button.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -44,7 +45,7 @@ export default class AmnuiLink extends HTMLElement {
             <a href="${this.attrs.href}" class="root ${this.attrs.variant} ${this.attrs.theme}">
                 <slot></slot>
             </a>
-            <style>${AmnuiLink.styleText}</style>
+            <style>${AmnuiLink.styleText}\n${AmnuiLink.styleOverrideText}</style>
         `;
         this.rootElement = this.shadow.querySelector("a.root")!;
         this.styleSheet = this.shadow.querySelector("style")!;

@@ -4,6 +4,7 @@ export default class AmnuiToaster extends HTMLElement {
     shadow: ShadowRoot;
     styleSheet?: HTMLStyleElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     private unsubscribe?: () => void;
     private toasts: AmnuiToast[] = [];
@@ -17,7 +18,7 @@ export default class AmnuiToaster extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-toaster.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-toaster.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -50,14 +51,14 @@ export default class AmnuiToaster extends HTMLElement {
         if (!this.rootEl) {
             this.shadow.innerHTML = `
                 <div class="root" role="status" aria-live="polite" aria-relevant="additions text"></div>
-                <style>${AmnuiToaster.styleText}</style>
+                <style>${AmnuiToaster.styleText}\n${AmnuiToaster.styleOverrideText}</style>
             `;
             this.rootEl = this.shadow.querySelector(".root") as HTMLDivElement;
             this.styleSheet = this.shadow.querySelector("style")!;
         } else {
             // keep stylesheet up to date (first render may have been before initStyles completed)
             const style = this.shadow.querySelector("style");
-            if (style) style.textContent = AmnuiToaster.styleText;
+            if (style) style.textContent = `${AmnuiToaster.styleText}\n${AmnuiToaster.styleOverrideText}`;
         }
 
         const nextIds = new Set(this.toasts.map((t) => t.id));

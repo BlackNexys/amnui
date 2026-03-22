@@ -3,6 +3,7 @@ export default class AmnuiSelect extends HTMLElement {
     styleSheet?: HTMLStyleElement;
     selectEl?: HTMLSelectElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     private observer?: MutationObserver;
 
@@ -17,7 +18,7 @@ export default class AmnuiSelect extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-select.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-select.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
@@ -25,6 +26,22 @@ export default class AmnuiSelect extends HTMLElement {
         this.observer = new MutationObserver(() => this.render());
         this.observer.observe(this, { childList: true, subtree: true, characterData: true });
         this.render();
+    }
+
+    get value() {
+        return this.getAttribute("value") || "";
+    }
+
+    set value(nextValue: string) {
+        this.setAttribute("value", nextValue);
+    }
+
+    focus(options?: FocusOptions) {
+        this.selectEl?.focus(options);
+    }
+
+    blur() {
+        this.selectEl?.blur();
     }
 
     disconnectedCallback() {
@@ -106,7 +123,7 @@ export default class AmnuiSelect extends HTMLElement {
                 ${props.errorMsg ? `<p id="${props.id}-error" class="message error">${props.errorMsg}</p>` : ""}
                 ${!props.errorMsg && props.description ? `<p id="${props.id}-description" class="message">${props.description}</p>` : ""}
             </div>
-            <style>${AmnuiSelect.styleText}</style>
+            <style>${AmnuiSelect.styleText}\n${AmnuiSelect.styleOverrideText}</style>
         `;
 
         this.selectEl = this.shadow.querySelector('[ref="selectEl"]') as HTMLSelectElement;
@@ -118,7 +135,7 @@ export default class AmnuiSelect extends HTMLElement {
 
         this.selectEl.addEventListener("change", () => {
             this.setAttribute("value", this.selectEl?.value ?? "");
-            this.dispatchEvent(new Event("change", { bubbles: true }));
+            this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
         });
     }
 }

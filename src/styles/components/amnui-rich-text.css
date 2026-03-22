@@ -1,0 +1,220 @@
+/* Interaction tokens (override these from the app/theme) */
+:host {
+  display: block;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--amnui-font-family-primary);
+}
+.root .label {
+  display: block;
+  font-size: var(--amnui-font-size-sm);
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: var(--amnui-leading-6);
+  color: inherit;
+  cursor: text;
+}
+.root .toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--amnui-spacing-2);
+  margin-top: var(--amnui-spacing-2);
+}
+.root .toolbar-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--amnui-spacing-2);
+  align-items: center;
+}
+.root .toolbar-field {
+  flex: 0 0 auto;
+  min-width: 9rem;
+}
+.root .format-select,
+.root .link-input {
+  min-height: 2rem;
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  border-radius: calc(var(--amnui-rounding) - 2px);
+  background: var(--amnui-control-bg, var(--amnui-white));
+  color: var(--amnui-light-text);
+  font: inherit;
+  font-size: var(--amnui-font-size-sm);
+  line-height: 1.2;
+  outline: none;
+  transition: var(--amnui-transition);
+}
+.root .format-select {
+  width: 100%;
+  padding: 0 var(--amnui-spacing-3);
+}
+.root .format-select:focus {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--amnui-spacing-2);
+  align-items: center;
+}
+.root .tool,
+.root .link-action {
+  min-height: 2rem;
+  padding: 0 var(--amnui-spacing-3);
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  border-radius: calc(var(--amnui-rounding) - 2px);
+  background: var(--amnui-control-bg, var(--amnui-white));
+  color: var(--amnui-light-text);
+  font: inherit;
+  font-size: var(--amnui-font-size-sm);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--amnui-transition);
+}
+.root .tool:hover:not(:disabled),
+.root .link-action:hover:not(:disabled) {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .tool:focus-visible,
+.root .link-action:focus-visible {
+  outline: none;
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .tool[aria-pressed=true] {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  background: var(--amnui-rich-text-tool-active-bg, var(--amnui-interaction-active-bg));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .tool[data-command=bold] .tool-label {
+  font-weight: 800;
+}
+.root .tool[data-command=italic] .tool-label {
+  font-style: italic;
+}
+.root .tool[data-command=underline] .tool-label {
+  text-decoration: underline;
+}
+.root .tool[data-command=strikethrough] .tool-label {
+  text-decoration: line-through;
+}
+.root .link-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: var(--amnui-spacing-2);
+  align-items: center;
+  padding: var(--amnui-spacing-2);
+  border: 1px solid var(--amnui-rich-text-toolbar-border, transparent);
+  border-radius: calc(var(--amnui-rounding) + var(--amnui-spacing-1));
+  background: var(--amnui-rich-text-toolbar-bg, rgba(0, 0, 0, 0.02));
+}
+.root .link-row[hidden] {
+  display: none;
+}
+.root .link-input {
+  width: 100%;
+  padding: 0 var(--amnui-spacing-3);
+}
+.root .link-input:focus {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .link-action.primary {
+  background: var(--amnui-primary);
+  border-color: var(--amnui-primary);
+  color: var(--amnui-primary-text);
+}
+.root .link-action.secondary {
+  background: var(--amnui-secondary);
+  border-color: var(--amnui-secondary);
+  color: var(--amnui-secondary-text);
+}
+.root .link-action.ghost {
+  background: transparent;
+}
+.root .container {
+  position: relative;
+  margin-top: var(--amnui-spacing-2);
+}
+.root .editor {
+  min-height: var(--amnui-rich-text-min-height, 12rem);
+  padding: var(--amnui-spacing-3) var(--amnui-spacing-4);
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  border-radius: calc(var(--amnui-rounding) + var(--amnui-spacing-1));
+  background: var(--amnui-control-bg, var(--amnui-white));
+  color: var(--amnui-light-text);
+  font-size: var(--amnui-font-size-sm);
+  line-height: 1.6;
+  outline: none;
+  transition: var(--amnui-transition);
+  white-space: normal;
+  word-break: break-word;
+}
+@media (min-width: 768px) {
+  .root .editor {
+    font-size: var(--amnui-font-size-md);
+  }
+}
+.root .editor:focus {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .editor:not([contenteditable=false]):hover {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .editor[contenteditable=false] {
+  background: var(--amnui-disabled-bg, var(--amnui-light));
+  color: var(--amnui-disabled-text, var(--amnui-secondary));
+}
+.root .editor.is-empty::before {
+  content: attr(data-placeholder);
+  color: var(--amnui-disabled-text, var(--amnui-secondary));
+  pointer-events: none;
+}
+.root .editor p,
+.root .editor h2,
+.root .editor h3,
+.root .editor ul,
+.root .editor ol,
+.root .editor blockquote {
+  margin-top: 0;
+}
+.root .editor h2,
+.root .editor h3 {
+  font-family: var(--amnui-font-family-secondary, var(--amnui-font-family-primary));
+  line-height: 1.2;
+}
+.root .editor h2 {
+  font-size: var(--amnui-font-size-xl);
+}
+.root .editor h3 {
+  font-size: var(--amnui-font-size-lg);
+}
+.root .editor ul,
+.root .editor ol {
+  padding-left: var(--amnui-spacing-5);
+}
+.root .editor blockquote {
+  margin-left: 0;
+  padding-left: var(--amnui-spacing-4);
+  border-left: 3px solid var(--amnui-rich-text-quote-border, var(--amnui-control-border, var(--amnui-secondary)));
+}
+.root .editor a {
+  color: var(--amnui-primary);
+}
+.root .message {
+  font-size: var(--amnui-font-size-xs);
+  color: inherit;
+  margin-top: var(--amnui-spacing-2);
+}
+
+:host([disabled]) .root {
+  filter: grayscale(0.75);
+  cursor: not-allowed;
+}

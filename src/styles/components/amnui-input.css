@@ -1,0 +1,119 @@
+/* Interaction tokens (override these from the app/theme) */
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--amnui-font-family-primary);
+}
+.root .label {
+  display: block;
+  font-size: var(--amnui-font-size-sm);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: var(--amnui-leading-6);
+  color: inherit;
+}
+.root .container {
+  position: relative;
+  flex-grow: 1;
+  border-radius: var(--amnui-rounding);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+.root .container.w-label {
+  margin-top: var(--amnui-spacing-1);
+}
+.root .input {
+  display: block;
+  flex-grow: 1;
+  margin-bottom: 0;
+  border-radius: var(--amnui-rounding);
+  border: 1px solid var(--amnui-control-border, var(--amnui-secondary));
+  padding: var(--amnui-spacing-2) var(--amnui-spacing-4);
+  padding-left: var(--amnui-spacing-3);
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: var(--amnui-transition);
+  background-color: var(--amnui-control-bg, var(--amnui-white));
+  background-image: var(--amnui-control-sheen, none);
+  background-blend-mode: screen;
+  color: var(--amnui-light-text);
+  font-size: var(--amnui-font-size-sm);
+  font-family: var(--amnui-font-family-primary);
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .root .input {
+    font-size: var(--amnui-font-size-md);
+  }
+}
+.root .input:focus {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow);
+}
+.root .input:not(:disabled):not(:read-only):hover {
+  border-color: var(--amnui-focus-ring, var(--amnui-primary));
+  box-shadow: 0 0 0 2px var(--amnui-border-glow-weak);
+}
+.root .input.error {
+  border-color: var(--amnui-danger);
+  color: var(--amnui-danger-dark);
+  padding-right: var(--amnui-spacing-12);
+}
+.root .input:disabled, .root .input:read-only {
+  background-color: var(--amnui-disabled-bg, var(--amnui-light));
+  color: var(--amnui-disabled-text, var(--amnui-secondary));
+}
+.root .input:disabled {
+  cursor: not-allowed;
+}
+.root .input-aside {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--amnui-spacing-2);
+}
+.root .input-aside.error {
+  font-size: var(--amnui-font-size-sm);
+  color: var(--amnui-danger);
+  pointer-events: none;
+}
+.root .input-aside.required {
+  font-size: var(--amnui-font-size-xs);
+  padding-bottom: var(--amnui-spacing-2);
+  color: var(--amnui-danger);
+  pointer-events: none;
+}
+.root .toggle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--amnui-spacing-2);
+  border: none;
+  background: transparent;
+  color: var(--amnui-secondary);
+  font-size: var(--amnui-font-size-xs);
+  cursor: pointer;
+  padding: var(--amnui-spacing-1);
+  border-radius: var(--amnui-rounding);
+}
+.root .toggle:hover {
+  color: var(--amnui-light-text);
+  background: var(--amnui-interaction-hover-bg);
+}
+.root .message {
+  font-size: var(--amnui-font-size-xs);
+  color: inherit;
+  margin-top: var(--amnui-spacing-2);
+}
+.root .message.error {
+  color: var(--amnui-danger);
+}
+
+:host([disabled]) .root {
+  filter: grayscale(0.75);
+  cursor: not-allowed;
+}

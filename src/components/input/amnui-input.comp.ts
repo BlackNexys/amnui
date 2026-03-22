@@ -3,6 +3,7 @@ export default class AmnuiInput extends HTMLElement {
     styleSheet?: HTMLStyleElement;
     rootElement?: HTMLDivElement;
     static styleText = "";
+    static styleOverrideText = "";
 
     private currentType: string | null = null;
 
@@ -15,16 +16,18 @@ export default class AmnuiInput extends HTMLElement {
             "description",
             "disabled",
             "required",
-            "errorMsg",
+            "readonly",
+            "error-msg",
             "label",
             "placeholder",
             "min",
             "max",
-            "maxLength",
-            "minLength",
+            "max-length",
+            "min-length",
             "step",
             "pattern",
-            "autocomplete"
+            "autocomplete",
+            "inputmode"
         ];
     }
 
@@ -35,13 +38,29 @@ export default class AmnuiInput extends HTMLElement {
 
     static async initStyles() {
         if (this.styleText) return;
-        const mod = (await import("../../styles/components/amnui-input.scss?inline")) as any;
+        const mod = (await import("../../styles/components/amnui-input.css?inline")) as any;
         this.styleText = String(mod?.default ?? "");
     }
 
     connectedCallback() {
         this.currentType = this.props.type;
         this.render();
+    }
+
+    get value() {
+        return this.getAttribute("value") || "";
+    }
+
+    set value(nextValue: string) {
+        this.setAttribute("value", nextValue);
+    }
+
+    focus(options?: FocusOptions) {
+        (this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement | null)?.focus(options);
+    }
+
+    blur() {
+        (this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement | null)?.blur();
     }
 
     get props() {
@@ -63,6 +82,7 @@ export default class AmnuiInput extends HTMLElement {
             step: this.getAttribute("step") || "",
             pattern: this.getAttribute("pattern") || "",
             autocomplete: this.getAttribute("autocomplete") || "off",
+            inputmode: this.getAttribute("inputmode") || "",
             description: this.getAttribute("description") || ""
         };
     }
@@ -127,6 +147,7 @@ export default class AmnuiInput extends HTMLElement {
                         step="${props.step}"
                         pattern="${props.pattern}"
                         autocomplete="${props.autocomplete}"
+                        inputmode="${props.inputmode}"
                         aria-required="${props.required}"
                         aria-invalid="${Boolean(props.errorMsg)}" 
                         aria-describedby="${props.errorMsg ? `${props.id}-error` : `${props.id}-description`}"
@@ -146,7 +167,7 @@ export default class AmnuiInput extends HTMLElement {
                 ${!props.errorMsg && props.description ? `<p id="${props.id}-description" class="message">${props.description}</p>` : ""}
                 <slot></slot>
             </div>
-            <style>${AmnuiInput.styleText}</style>
+            <style>${AmnuiInput.styleText}\n${AmnuiInput.styleOverrideText}</style>
         `;
 
         const inputEl = this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement;
@@ -163,5 +184,15 @@ export default class AmnuiInput extends HTMLElement {
                 (this.shadow.querySelector('[ref="inputEl"]') as HTMLInputElement | null)?.focus();
             });
         }
+
+        inputEl.addEventListener("input", () => {
+            this.setAttribute("value", inputEl.value);
+            this.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+        });
+
+        inputEl.addEventListener("change", () => {
+            this.setAttribute("value", inputEl.value);
+            this.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+        });
     }
 }

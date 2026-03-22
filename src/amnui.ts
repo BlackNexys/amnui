@@ -1,9 +1,9 @@
 const comps = import.meta.glob("./**/*.comp.ts");
 
-import "./styles/theme.scss";
+import "./styles/theme.css";
 
 export interface AMNUIOptions {
-    styleOverride?: any;
+    styleOverride?: Record<string, string>;
     themeOverride?: string;
     toasts?: boolean;
 }
@@ -48,8 +48,13 @@ export default class AMNUI {
         Object.entries(comps).forEach(async ([fileName, importer]) => {
             const comp = (await importer()) as any;
             const compName = fileName.split("/").pop()?.replace(".comp.ts", "") as string;
-            if (this.styleOverride[compName]) comp.default.styleSrc = this.styleOverride[compName];
-            customElements.define(compName, comp.default);
+            if (this.styleOverride[compName]) {
+                comp.default.styleOverrideText = this.styleOverride[compName];
+            }
+
+            if (!customElements.get(compName)) {
+                customElements.define(compName, comp.default);
+            }
         });
     }
 }
