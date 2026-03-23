@@ -122,10 +122,16 @@ export default class AmnuiRichText extends HTMLElement {
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
         if (oldValue === newValue) return;
 
-        if (name === "value" && this.editorEl && !this.isSyncingValue) {
-            this.setEditorHtml(sanitizeRichText(newValue || ""));
-            this.lastCommittedValue = this.value;
-            return;
+        if (name === "value") {
+            if (this.isSyncingValue) {
+                return;
+            }
+
+            if (this.editorEl) {
+                this.setEditorHtml(sanitizeRichText(newValue || ""));
+                this.lastCommittedValue = this.value;
+                return;
+            }
         }
 
         this.render();
